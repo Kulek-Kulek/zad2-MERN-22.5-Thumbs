@@ -4,6 +4,8 @@ import Helmet from 'react-helmet';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { getShowEditPost } from '../../../App/AppReducer';
 import { toggleEditPost } from '../../../App/AppActions';
+import thumbUp from './images/thumbUp.jpg';
+import thumbDown from './images/thumbDown.jpg';
 
 
 // Import Style
@@ -49,23 +51,22 @@ renderPost = () => {
       <p className={styles['post-desc']}>{this.props.post.content}</p>
       <div>
         Oceń post:
-        <button onClick={this.handleVoteUp.bind(this)}>=======UP======</button>
-        <button onClick={this.handleVoteDown.bind(this)}>=====DOWN=====</button>
-
         <br/>
-        aktualna ocena: {this.props.post.votesUp || 0}
+        <img className={styles['emoticonUp']} src={thumbUp} onClick={this.handleVoteUp.bind(this)}/>
+        <img className={styles['emoticonDown']} src={thumbDown} onClick={this.handleVoteDown.bind(this)}/>
+        <br/>
+        aktualna ocena: {this.props.post.votesUp || 0} 
       </div>
     </div>
   );
 };
 
 handleVoteUp(){
-  console.log('up', this.props);
   this.props.thumbUpCommentRequest(this.props.params.cuid, (this.props.post.votesUp || 0) + 1);
 }
 
 handleVoteDown(){
-  console.log('down');
+  this.props.thumbUpCommentRequest(this.props.params.cuid, (this.props.post.votesUp || 0) - 1);
 }
 
 handleInputChange = (event) => {
